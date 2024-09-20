@@ -1,9 +1,7 @@
 import os
 import numpy as np
-import itertools
+from skimage import metrics
 from PIL import Image, ImageFilter
-
-# https://www.scirp.org/journal/paperinformation?paperid=90911
 
 images = [
     ("pexels-icsa.jpg", 256),
@@ -31,40 +29,26 @@ def prepare_image(image: tuple[str, int]) -> tuple[Image, Image]:
     with Image.open(file_path) as img:
         resized_filepath = os.path.join(resized_folder, filename)
         img.thumbnail((size, size))
+        img = img.convert('L')
         img.save(resized_filepath)
 
         # Now distort the image
         distorted_filepath = os.path.join(distorted_folder, filename)
-        distorted = img.filter(ImageFilter.GaussianBlur(radius=2))
+        distorted = img.filter(ImageFilter.GaussianBlur(radius=10))
         distorted.save(distorted_filepath, format="JPEG", quality=80, optimize=True)
 
-        return img, distorted
-
-
-def mse(image_a: Image, image_b: Image) -> float:
-    assert image_a.size == image_b.size
-
-    np.mean(image_a)
-
-    width, height = image_a.size
-
-    return np.sum([
-        np.sum([(rgb_b - rgb_a) ** 2 for rgb_a, rgb_b in zip(image_a.getpixel(coords), image_b.getpixel(coords))])
-        for coords in itertools.product(range(0, width), range(0, height))
-    ]) / (width * height * 3)
-
-def rmse(image_a: Image, image_b: Image) -> float:
-    return np.sqrt(mse(image_a, image_b))
+        return np.array(img), np.array(distorted)
 
 
 def main():
     image_data = prepare_images(images)
 
-    for data in image_data:
-        a, b = data
-        print(mse(a, b))
-        print(rmse(a, b))
-        break
+    for i in range(0, len(image_data)):
+        a, b = image_data[i]
+        print(f"--- {images[i][0]} ")
+        print(metrics.mean_squared_error(a, b))
+        print(metrics.peak_signal_noise_ratio(a, b))
+        print(metrics.structural_similarity(a, b))
 
 
 if __name__ == '__main__':
