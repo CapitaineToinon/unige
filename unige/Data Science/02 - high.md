@@ -1,0 +1,2 @@
+- Be careful of sample size, when D increase it can make data worse
+- 

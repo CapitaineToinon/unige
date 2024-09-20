@@ -1,0 +1,178 @@
+{
+  "main": {
+    "id": "92b85b7c21add2bf",
+    "type": "split",
+    "children": [
+      {
+        "id": "d23758cc49e8965a",
+        "type": "tabs",
+        "children": [
+          {
+            "id": "87b2680ff287c886",
+            "type": "leaf",
+            "state": {
+              "type": "markdown",
+              "state": {
+                "file": "Digital Forensics/README.md",
+                "mode": "source",
+                "source": false
+              }
+            }
+          },
+          {
+            "id": "be1c797bd58767f3",
+            "type": "leaf",
+            "state": {
+              "type": "markdown",
+              "state": {
+                "file": "01.md",
+                "mode": "source",
+                "source": false
+              }
+            }
+          }
+        ],
+        "currentTab": 1
+      }
+    ],
+    "direction": "vertical"
+  },
+  "left": {
+    "id": "45f0e11b809a4e5c",
+    "type": "split",
+    "children": [
+      {
+        "id": "7df5515ccc69a4da",
+        "type": "tabs",
+        "children": [
+          {
+            "id": "6ef8cbbdb6333f32",
+            "type": "leaf",
+            "state": {
+              "type": "file-explorer",
+              "state": {
+                "sortOrder": "alphabetical"
+              }
+            }
+          },
+          {
+            "id": "c632698c9e94c3fd",
+            "type": "leaf",
+            "state": {
+              "type": "search",
+              "state": {
+                "query": "",
+                "matchingCase": false,
+                "explainSearch": false,
+                "collapseAll": false,
+                "extraContext": false,
+                "sortOrder": "alphabetical"
+              }
+            }
+          },
+          {
+            "id": "bb691df0bd0e3168",
+            "type": "leaf",
+            "state": {
+              "type": "bookmarks",
+              "state": {}
+            }
+          }
+        ]
+      }
+    ],
+    "direction": "horizontal",
+    "width": 300
+  },
+  "right": {
+    "id": "f4cd0fbcb94db5a0",
+    "type": "split",
+    "children": [
+      {
+        "id": "8b4b9f97d46c01ac",
+        "type": "tabs",
+        "children": [
+          {
+            "id": "c1437f6299afe2c6",
+            "type": "leaf",
+            "state": {
+              "type": "backlink",
+              "state": {
+                "file": "01.md",
+                "collapseAll": false,
+                "extraContext": false,
+                "sortOrder": "alphabetical",
+                "showSearch": false,
+                "searchQuery": "",
+                "backlinkCollapsed": false,
+                "unlinkedCollapsed": true
+              }
+            }
+          },
+          {
+            "id": "a17db0621375eb26",
+            "type": "leaf",
+            "state": {
+              "type": "outgoing-link",
+              "state": {
+                "file": "01.md",
+                "linksCollapsed": false,
+                "unlinkedCollapsed": true
+              }
+            }
+          },
+          {
+            "id": "05554a49670c2df4",
+            "type": "leaf",
+            "state": {
+              "type": "tag",
+              "state": {
+                "sortOrder": "frequency",
+                "useHierarchy": true
+              }
+            }
+          },
+          {
+            "id": "77805a56d25440b4",
+            "type": "leaf",
+            "state": {
+              "type": "outline",
+              "state": {
+                "file": "01.md"
+              }
+            }
+          }
+        ]
+      }
+    ],
+    "direction": "horizontal",
+    "width": 300,
+    "collapsed": true
+  },
+  "left-ribbon": {
+    "hiddenItems": {
+      "switcher:Open quick switcher": false,
+      "graph:Open graph view": false,
+      "canvas:Create new canvas": false,
+      "daily-notes:Open today's daily note": false,
+      "templates:Insert template": false,
+      "command-palette:Open command palette": false
+    }
+  },
+  "active": "be1c797bd58767f3",
+  "lastOpenFiles": [
+    "Digital Forensics/README.md",
+    "01.md",
+    "Methaeuristics",
+    "Digital Forensics",
+    "Data Science/DS.02.highDimension.pdf",
+    "Data Science/02 - high.md",
+    "Data Science/2401.DS-examQuestions.pdf",
+    "Data Science/README.md",
+    "Data Science/01 - Introduction.md",
+    "Data Science/DS.01.intro.pdf",
+    "Data Science/HowToAnswerOralExamQuestions.pdf",
+    "Data Science",
+    "Welcome.md"
+  ]
+}

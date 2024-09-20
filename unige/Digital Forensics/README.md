@@ -1,0 +1,4 @@
+- grading works as such
+	- 40%: continus tests and oral exam. If continus tests are good enough you can skip oral
+	- 30%: labs
+	- 30%: mini project (quite a lot to do, consider that a prep for master thesis)
