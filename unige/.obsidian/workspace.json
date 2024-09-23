@@ -4,35 +4,18 @@
     "type": "split",
     "children": [
       {
-        "id": "d23758cc49e8965a",
+        "id": "6d49cd6af61656d9",
         "type": "tabs",
         "children": [
           {
-            "id": "87b2680ff287c886",
+            "id": "8fbfa91f89bcf0a9",
             "type": "leaf",
             "state": {
-              "type": "markdown",
-              "state": {
-                "file": "Digital Forensics/README.md",
-                "mode": "source",
-                "source": false
-              }
-            }
-          },
-          {
-            "id": "be1c797bd58767f3",
-            "type": "leaf",
-            "state": {
-              "type": "markdown",
-              "state": {
-                "file": "01.md",
-                "mode": "source",
-                "source": false
-              }
+              "type": "empty",
+              "state": {}
             }
           }
-        ],
-        "currentTab": 1
+        ]
       }
     ],
     "direction": "vertical"
@@ -98,7 +81,6 @@
             "state": {
               "type": "backlink",
               "state": {
-                "file": "01.md",
                 "collapseAll": false,
                 "extraContext": false,
                 "sortOrder": "alphabetical",
@@ -115,7 +97,6 @@
             "state": {
               "type": "outgoing-link",
               "state": {
-                "file": "01.md",
                 "linksCollapsed": false,
                 "unlinkedCollapsed": true
               }
@@ -137,9 +118,7 @@
             "type": "leaf",
             "state": {
               "type": "outline",
-              "state": {
-                "file": "01.md"
-              }
+              "state": {}
             }
           }
         ]
@@ -159,20 +138,26 @@
       "command-palette:Open command palette": false
     }
   },
-  "active": "be1c797bd58767f3",
+  "active": "8fbfa91f89bcf0a9",
   "lastOpenFiles": [
-    "Digital Forensics/README.md",
+    "smv/exercices/exercice 1/Exercice 1.md",
+    "smv/exercices/exercice 1/1.png",
+    "smv/exercices/exercice 1",
+    "smv/exercices",
+    "smv/exercices/exercice 1/1.json",
+    "smv/README.md",
     "01.md",
+    "Welcome.md",
+    "smv",
+    "Digital Forensics/README.md",
+    "Data Science/01 - Introduction.md",
+    "Data Science/README.md",
+    "Data Science/DS.02.highDimension.pdf",
+    "Data Science/DS.01.intro.pdf",
+    "Data Science/2401.DS-examQuestions.pdf",
+    "Data Science/02 - high.md",
     "Methaeuristics",
     "Digital Forensics",
-    "Data Science/DS.02.highDimension.pdf",
-    "Data Science/02 - high.md",
-    "Data Science/2401.DS-examQuestions.pdf",
-    "Data Science/README.md",
-    "Data Science/01 - Introduction.md",
-    "Data Science/DS.01.intro.pdf",
-    "Data Science/HowToAnswerOralExamQuestions.pdf",
-    "Data Science",
-    "Welcome.md"
+    "Data Science/HowToAnswerOralExamQuestions.pdf"
   ]
 }
