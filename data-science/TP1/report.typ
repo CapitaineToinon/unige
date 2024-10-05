@@ -1,55 +1,20 @@
-#let author = "Antoine Sutter"
-#let email = "antoine.sutter@etu.unige.ch"
-#let title = "TP1: Linear Algebra"
+#import "@local/unige:0.1.0": *
 
-#set heading(numbering: "1.")
-#set page(
-  paper: "a4",
-  header: context {
-    if counter(page).get().first() > 1 [
-      #author
-      #h(1fr) #title
-    ]
-  },
-  footer: context {
-    if counter(page).get().first() > 1 [
-      #set align(right)
-      #set text(8pt)
-      #counter(page).display(
-        "1 of I",
-        both: true,
-      )
-    ]
-  },
-)
-
-#align(center)[
-  #text(size: 20pt)[Université de Genève]
-
-  #text(size: 18pt)[
+#show: doc => conf(
+  title: "TP1: Linear Algebra",
+  header: "Université de Genève",
+  subheader: [
     Analyse et Traitement de l'Information\
     14X026
-  ]
-
-  #let padding = 30pt
-  #pad(top: padding, line(length: 100%))
-  #pad(y: padding, text(size: 24pt, [*#title*]))
-  #pad(bottom: padding, line(length: 100%))
-
-  #author\
-  #link("mailto:" + email)[#email]
-]
-
-#align(bottom + center)[
-  #datetime.today().display("[month repr:long] [year]")
-  #figure(image("unige_csd.png"))
-]
-
-#pagebreak()
-
-#outline()
-
-#pagebreak()
+  ],
+  authors: (
+    (
+      name: "Antoine Sutter",
+      email: "antoine.sutter@etu.unige.ch",
+    ),
+  ),
+  doc,
+)
 
 = Matrix
 
@@ -390,56 +355,29 @@ $ u #math.dot v $
 
 If we want to be pedentic, we could rewite the last tree lines into one as such:
 
-#align(center)[
-  ```python
-  r = sum([ui * vi for ui, vi in zip(u, v)])
-  ```
-]
-
+```python
+r = sum([ui * vi for ui, vi in zip(u, v)])
+```
 
 But of course would should use `numpy` for this instead:
 
-#align(center)[
-  ```python
-  r = np.dot(u, v)
-  ```
-]
+```python
+r = np.dot(u, v)
+```
 
 #pagebreak()
 
 == Orthogonal vector
 
+#let file = read("part_2.py")
+
 Complete the code to construct a vector $v$ orthogonal to the vector $u$ and of the same norm. Comment each line of your code.
 
-```python
-import numpy as np
-
-# create 2 random vectors of length 7
-u = np.random.randn(7)
-v = np.random.randn(7)
-
-# Perform some computations
-r = np.dot(u, v)
-
-# Creating a vector orthogonal to u and of the same norm
-# Step 1: Generate a random vector
-w = np.random.randn(7)
-
-# Step 2: Make w orthogonal to u by subtracting its projection on u
-proj_u_w = (np.dot(w, u) / np.dot(u, u)) * u
-v_orthogonal = w - proj_u_w
-
-# Step 3: Normalize v_orthogonal to make it of the same norm as the original v
-v_orthogonal = v_orthogonal / np.linalg.norm(v_orthogonal) * np.linalg.norm(v)
-
-# Check orthogonality and norm
-dot_product = np.dot(u, v_orthogonal)
-norm_v_orthogonal = np.linalg.norm(v_orthogonal)
-
-print("Dot product (should be close to 0):", dot_product)
-print("Norm of v (original):", np.linalg.norm(v))
-print("Norm of v (orthogonal):", norm_v_orthogonal)
-```
+#raw(
+  file.split("\n").slice(2, 27).join("\n"),
+  lang: "python",
+  block: true,
+)
 
 Example output from a few runs I've done:
 
@@ -459,23 +397,340 @@ $ cos #math.alpha = (u #math.dot v) / (#math.norm("u") #math.dot #math.norm("v")
 
 In order to do that in python, we can use the following code. It's important to check that neither the norm of $u$ or $v$ is zero as the computation would be impossible otherwise.
 
-```python
-def cosine_similarity(u: np.array, v: np.array) -> np.float64:
-    # Get the norm for u and v
-    norm_u = np.linalg.norm(u)
-    norm_v = np.linalg.norm(v)
-
-    # Prevent a divide by 0 error
-    if norm_u == 0 or norm_v == 0:
-        raise ValueError("cannot use vectors with norm 0")
-
-    # do the actual computation
-    return np.dot(u, v) / (norm_u * norm_v)
-
-u = np.array([1, 2, 3])
-v = np.array([4, 5, 6])
-cos_theta = cosine_similarity(u, v)
-print(f'Cosine of the angle between u and v: {cos_theta}')
-```
+#raw(
+  file.split("\n").slice(28, 41).join("\n"),
+  lang: "python",
+  block: true,
+)
 
 In this case, the angle is `0.9746318461970762`.
+
+#pagebreak()
+
+= Eigenvalues, Eigenvectors, and Determinants
+
+== Find the determinant, eigenvectors, and eigenvalues of the matrix
+
+$
+  A = mat(
+    5, 6, 3;
+    -1, 0, 1;
+    1, 2, -1;
+  )
+$
+
+#let a = 5
+#let b = 6
+#let c = 3
+#let d = -1
+#let e = 0
+#let f = 1
+#let g = 1
+#let h = 2
+#let i = -1
+
+=== Determinant
+
+The deteminant of a 3x3 matrix is defined as such:
+
+$
+  mat(
+    a, b, c;
+    d, e, f;
+    g, h, i;
+  ) = a e i + b f g + c d h - c e g - b d i - a f h
+$
+
+Which gives us the following result
+
+$ #(a * e * i) + #(b * f * g) + #(c * d * h) - #(c * e * g) - #(b * d * i) - #(a * f * h) $
+$ 0 + 6 - 6 - 0 - 6 - 10 = -16 $
+
+We can verify using the following python code:
+
+#raw(read("part_3_det.py"), lang: "python", block: true)
+
+And gives us a similar result:
+
+```
+-15.999999999999998
+```
+
+#pagebreak()
+
+=== Eigen values
+
+#let L = math.lambda
+
+First we need to find the eigen values of $A$. To do so, we need to solve the deteminant for $A - #L I$ where #L is the unknown eigen value and $I$ is the indentity matrix.
+
+$
+  A - #L I = mat(
+    5, 6, 3;
+    -1, 0, 1;
+    1, 2, -1;
+  ) - #L mat(
+    1, 0, 0;
+    0, 1, 0;
+    0, 0, 1
+  ) = 0
+$
+
+$
+  det mat(
+    5-#L, 6, 3;
+    -1, -#L, 1;
+    1, 2, -1 -#L
+  ) = 0
+$
+
+We can then compute the deteminant and solve for #L
+
+
+
+$
+  (5-#L)(-#L)(-1-#L) + 6 - 6 + 3#L +6(-1-#L) - 2(5-#L)\
+$
+
+$
+  (5-#L)(-#L)(-1-#L) +3#L -6 -6#L -10 +2#L
+$
+
+$
+  (5-#L)(-#L)(-1-#L) -#L -16
+$
+
+$
+  (5-#L)(#L+#L^2) -#L -16
+$
+
+$
+  5#L +5#L^2 -#L^2 -#L^3 -#L -16
+$
+
+$
+  -#L^3 +4#L^2 +4#L -16
+$
+
+
+Therefore, the polynomial function of $A$ is:
+
+$ p(#L) = -#L^3 +4#L^2 +4#L -16 = 0 $
+
+#let p(x) = (calc.pow(x * -1, 3) + (4 * calc.pow(x, 2)) + (4 * x) - 16)
+
+Because this example is being solved by hand, we can safely assume that the roots we're looking for are integers. We also know that the roots have to be factors of the 16 in this example. We can therefore just try out all the factors of 16 and find out if any of them work.
+
+
+- $p(1) = #(p(1))$
+- $p(2) = #(p(2))$
+
+Therefore 2 is an eigen value. We can also try -2 since it could also be a solution.
+
+- $p(-2) = #(p(-2))$
+
+Therefore -2 is also an eigen value.
+
+- $p(4) = #(p(4))$
+
+Therefore 4 is also an engien value. However -4 won't work this time.
+
+- $p(-4) = #(p(-4))$
+- $p(8) = #(p(8))$
+- $p(16) = #(p(16))$
+
+The eigen values of $A$ are 2, -2 and 4.
+
+#pagebreak()
+
+We can verify that we got it correctly with the following python code
+
+#raw(
+  read("part_3_eigvalues.py"),
+  lang: "python",
+  block: true,
+)
+
+```
+[-2.  4.  2.]
+```
+
+#pagebreak()
+
+=== Eigen vectors
+
+Now that we have the eigen values of $A$, we need to solve the following:
+
+$
+  mat(
+    5-#L, 6, 3;
+    -1, -#L, 1;
+    1, 2, -1 -#L
+  )
+  mat(X;Y;Z) = mat(0;0;0)
+$
+
+#let p(x) = $mat(
+  #(5 - x), 6, 3;
+  -1, #(-x), 1;
+  1, 2, #(-1 -x))$
+
+In order to find a solution for $#L = 2$, let's lock $X = 1$.
+
+$ #(p(2)) mat(1;Y;Z) = mat(0;0;0) $
+
+We can get our first 2 equations like so:
+
+$
+  f_1 = 3 + 6Y + 3Z = 0\
+  f_2 = -1 - 2Y +Z = 0
+$
+
+Then $f_1 - 3f_2$ to extract $Y$
+
+$
+  f_1 - 3f_2 = (3 + 6Y + 3Z) - (-3 - 6Y + 3Z) = 6 + 12Y = 0\
+  12Y = -6\
+  Y = -6 / 12 = -1 / 2
+$
+
+Now let's insert $Y$ into $f_2$:
+
+$
+  f_2 = -1 -2(-1 / 2) + Z = 0\
+  f_2 = -1 + 1 + Z = 0\
+  Z = 0
+$
+
+We can now verify with $f_3$:
+
+$
+  1 + 2(-1 / 2) = 0\
+  1 - 1 = 0
+$
+
+Therefore, our eigen vector for the eigen value $#L = 2$ is:
+
+$
+  mat(1; -1/2; 0)
+$
+
+We can scale it up to get rid of the fraction
+
+$
+  mat(2; -1; 0)
+$
+
+We can now verify that our original equation is true:
+
+$ #(p(2)) mat(2; -1; 0) = mat(0;0;0) $
+
+#pagebreak()
+
+We can then verify we got it correctly using the following python code:
+
+#raw(
+  read("part_3_eigvec.py"),
+  lang: "python",
+  block: true,
+)
+
+```
+[[ 3.  6.  3.]
+ [-1. -2.  1.]
+ [ 1.  2. -3.]]
+[ 1.  -0.5  0. ]
+[0. 0. 0.]
+```
+
+#pagebreak()
+
+Now we need to do the same for $#L = -2$. This time we lock $Y = 1$ because locking $X = 1$ would lead too all variables disapearing when doing subscractions, meaning $X$ is 0 which we will confirm is true later. I will not comment every steps from now one since it's similar to the previous example.
+
+$ #L = -2 -> #(p(-2)) mat(X;1;Z) = mat(0;0;0)\ $
+$ f_1 = 7X + 6 + 3Z = 0 $
+$ f_2 = -1X + 2 + Z = 0 $
+
+$
+  f_1 - 3f_2 = (7X + 6 + 3Z) - (-3X + 6 + 3Z) = 10X = 0\
+  X = 0
+$
+
+$
+  f_2 = 2 + Z = 0\
+  Z = -2
+$
+
+$
+  f_3 = 2 - 2 = 0
+$
+
+Therefore the eigen vector for $#L = -2$ is:
+
+$ mat(0; 1; -2) $
+
+And we can again confirm via python that the result is correct.
+
+#raw(
+  read("part_3_eigvec_2.py"),
+  lang: "python",
+  block: true,
+)
+
+```
+[[ 7.  6.  3.]
+ [-1.  2.  1.]
+ [ 1.  2.  1.]]
+[ 0  1 -2]
+[0. 0. 0.]
+```
+
+#pagebreak()
+
+Now we need to do the same for $#L = 4$
+
+$ #L = 4 -> #(p(4)) mat(1;Y;Z) = mat(0;0;0) $
+
+$ f_1 = 1 + 6Y + 3Z = 0 $
+$ f_2 = -1 -4Y + Z = 0 $
+$ f_1 - 3f_2 = (1 + 6Y + 3Z) - (-3 - 12Y + 3Z) = 18Y + 4 = 0 $
+$ Y = -4 / 18 = -2 / 9 $
+$ f_2 = -1 - 4(-2 / 9) + Z $
+$ f_2 = -1 - 4(-2 / 9) + Z $
+$ f_2 = -1 + 8 / 9 + Z = 0 $
+$ Z = 1 - 8 / 9 $
+$ f_3 = 1 + 2(-2 / 9) - 5(1-8 / 9) = 0 $
+
+Therefore the eigen vector for $#L = 4$ is:
+
+$ mat(1; -2/9; 1-8/9) $
+
+#pagebreak()
+
+And we can again confirm via python that the result is correct. This time however we do not get exactly the vector `[0. 0. 0]` but this is because of the limitation of floating point numbers. We are close enough.
+
+#raw(
+  read("part_3_eigvec_3.py"),
+  lang: "python",
+  block: true,
+)
+
+```
+[[ 1.  6.  3.]
+ [-1. -4.  1.]
+ [ 1.  2. -5.]]
+[ 1.         -0.22222222  0.11111111]
+[ 2.22044605e-16  0.00000000e+00 -2.22044605e-16]
+```
+
+#pagebreak()
+
+== TODO
+
+== Eigenvalues of covariance matrices
+
+#figure(
+  image("part_3_3.png"),
+  caption: [Eigenspectrums of the data sets],
+)
+

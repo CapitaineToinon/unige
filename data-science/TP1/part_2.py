@@ -26,7 +26,7 @@ print("Dot product (should be close to 0):", dot_product)
 print("Norm of v (original):", np.linalg.norm(v))
 print("Norm of v (orthogonal):", norm_v_orthogonal)
 
-def cosine_similarity(u: np.array, v: np.array) -> np.float64:
+def cosine_similarity(u: np.ndarray, v: np.ndarray) -> np.float64:
     norm_u = np.linalg.norm(u)
     norm_v = np.linalg.norm(v)
 
@@ -39,4 +39,3 @@ u = np.array([1, 2, 3])
 v = np.array([4, 5, 6])
 cos_theta = cosine_similarity(u, v)
 print(f'Cosine of the angle between u and v: {cos_theta}')
-print(type(cos_theta))
