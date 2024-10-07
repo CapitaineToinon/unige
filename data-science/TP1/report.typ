@@ -168,8 +168,8 @@ From there we can calulate the deteminant and check if it's not 0. Otherwise it 
 
 $
   det(A) = a(e i - f h) - b(d i - f g) + c(d h - e g) \
-  det(A) = #a (#e * #i - #f * #h) - #b (#d * #i - #f * #g) + #c (#d * #h - #e * #g) \
-  det(A) = (#a * #(e * i - f * h)) - (#b * #(d * i - f * g)) + (#c * #(d * h - e * g)) \
+  det(A) = #a (#e dot #i - #f dot #h) - #b (#d dot #i - #f dot #g) + #c (#d dot #h - #e dot #g) \
+  det(A) = (#a dot #(e * i - f * h)) - (#b dot #(d * i - f * g)) + (#c dot #(d * h - e * g)) \
   det(A) = (#(a * (e * i - f * h))) - (#(b * (d * i - f * g))) + (#(c * (d * h - e * g))) \
   det(A) = #(a * (e * i - f * h) - (b * (d * i - f * g)) + (c * (d * h - e * g)))
 $
@@ -177,15 +177,15 @@ $
 Because the deteminant isn't 0 we know there is a solution. We can now calculate the cofactor matrix of $A$. The cofactor $C i j$ is calculated by eliminating the $i$-th row and $j$-th column, then calculating the determinant of the resulting 2x2 matrix, applying a sign change based on position.
 
 $
-  C 11: det(1*0 - 4*6) = -24 \
-  C 12: -det(0*0 - 4*5) = 20 \
-  C 13: det(0*6 - 1*5) = -5 \
-  C 21: -det(2*0 - 3*6) = 18 \
-  C 22: det(1*0 - 3*5) = -15 \
-  C 23: -det(1*4 - 2*5) = 4 \
-  C 31: det(2*4 - 3*1) = 5 \
-  C 32: -det(1*4 - 3*0) = -4 \
-  C 33: det(1*1 - 2*0) = 1 \
+  C 11: det(1 dot 0 - 4 dot 6) = -24 \
+  C 12: -det(0 dot 0 - 4 dot 5) = 20 \
+  C 13: det(0 dot 6 - 1 dot 5) = -5 \
+  C 21: -det(2 dot 0 - 3 dot 6) = 18 \
+  C 22: det(1 dot 0 - 3 dot 5) = -15 \
+  C 23: -det(1 dot 4 - 2 dot 5) = 4 \
+  C 31: det(2 dot 4 - 3 dot 1) = 5 \
+  C 32: -det(1 dot 4 - 3 dot 0) = -4 \
+  C 33: det(1 dot 1 - 2 dot 0) = 1 \
 $
 
 This gives us the $"Cof"(A)$ matrix:
@@ -223,33 +223,33 @@ $
 Let's start with the determinant of $A$:
 
 $
-  det(A) = (1 * 5) - (3 * 2) = 5 - 6 = -1
+  det(A) = (1 dot 5) - (3 dot 2) = 5 - 6 = -1
 $
 
 From there we can get $A^(-1)$
 
 $
-  A^(-1) = 1 / det(A) * mat(d, -b; -c, a)
+  A^(-1) = 1 / det(A) dot mat(d, -b; -c, a)
 $
 
 With values filled we get the following
 
 $
-  A^(-1) = 1 / (-1) * mat(5, -3; -2, 1)\
+  A^(-1) = 1 / (-1) dot mat(5, -3; -2, 1)\
   A^(-1) = mat(-5, 3; 2, -1)
 $
 
 Now we need to multiply $A^(-1)$ by $B$ to find $X$
 
 $
-  X = mat(-5, 3; 2, -1) * mat(7, 8; 9, 10)\
+  X = mat(-5, 3; 2, -1) dot mat(7, 8; 9, 10)\
 $
 
 $
-  X[0][0] = (-5 * 7) + (3 * 9) = -35 + 27 = -8 \
-  X[0][1] = (-5 * 8) + (3 * 10) = -40 + 30 = -10 \
-  X[1][0] = (2 * 7) + (-1 * 9) = 14 - 9 = 5 \
-  X[1][1] = (2 * 8) + (-1 * 10) = 16 - 10 = 6 \
+  X[0][0] = (-5 dot 7) + (3 dot 9) = -35 + 27 = -8 \
+  X[0][1] = (-5 dot 8) + (3 dot 10) = -40 + 30 = -10 \
+  X[1][0] = (2 dot 7) + (-1 dot 9) = 14 - 9 = 5 \
+  X[1][1] = (2 dot 8) + (-1 dot 10) = 16 - 10 = 6 \
 $
 
 Which means we have our solution:
@@ -317,11 +317,11 @@ $ u = mat(3, 4), v = mat(1, 2) $
 
 Then a dot product of $u #math.dot v$ is done as follow:
 
-$ u #math.dot v = mat(3, 4) #math.dot mat(1, 2) = 3 * 1 + 4 * 2 = 11 $
+$ u #math.dot v = mat(3, 4) #math.dot mat(1, 2) = 3 dot 1 + 4 dot 2 = 11 $
 
 Then doing the dot project $u #math.dot u$ is done as follow:
 
-$ u #math.dot v = mat(3, 4) #math.dot mat(3, 4) = 3 * 3 + 4 * 4 = 25 $
+$ u #math.dot v = mat(3, 4) #math.dot mat(3, 4) = 3 dot 3 + 4 dot 4 = 25 $
 
 After that, we can do the scalar product, which consist of the following:
 
@@ -329,7 +329,7 @@ $ "scalar" = (u #math.dot v) / (u #math.dot u) -> 11 / 25 $
 
 The projection is then a multiplication of the result above with the $u$ vector.
 
-$ w = 11 / 25 * mat(3, 4) = mat(33 / 25, 44 / 25) #math.approx mat(1.32, 1.76) $
+$ w = 11 / 25 dot mat(3, 4) = mat(33 / 25, 44 / 25) #math.approx mat(1.32, 1.76) $
 
 In summary, the function projects vector $v$ onto vector $u$, resulting in a new vector that represents the part of $v$ that is aligned with $u$.
 
@@ -517,29 +517,18 @@ Therefore, the polynomial function of $A$ is:
 
 $ p(#L) = -#L^3 +4#L^2 +4#L -16 = 0 $
 
-#let p(x) = (calc.pow(x * -1, 3) + (4 * calc.pow(x, 2)) + (4 * x) - 16)
+#let p(x) = (calc.pow(-x, 3) + 4 * calc.pow(x, 2) + 4 * x - 16)
 
 Because this example is being solved by hand, we can safely assume that the roots we're looking for are integers. We also know that the roots have to be factors of the 16 in this example. We can therefore just try out all the factors of 16 and find out if any of them work.
 
+#for i in (1, 2, 4, 8, 16) {
+  [
+    - $p(#i) = #(p(i))$
+    - $p(-#i) = #(p(-i))$
+  ]
+}
 
-- $p(1) = #(p(1))$
-- $p(2) = #(p(2))$
-
-Therefore 2 is an eigen value. We can also try -2 since it could also be a solution.
-
-- $p(-2) = #(p(-2))$
-
-Therefore -2 is also an eigen value.
-
-- $p(4) = #(p(4))$
-
-Therefore 4 is also an engien value. However -4 won't work this time.
-
-- $p(-4) = #(p(-4))$
-- $p(8) = #(p(8))$
-- $p(16) = #(p(16))$
-
-The eigen values of $A$ are 2, -2 and 4.
+Therefore the eigen values of $A$ are 2, -2 and 4.
 
 #pagebreak()
 
@@ -725,12 +714,144 @@ And we can again confirm via python that the result is correct. This time howeve
 
 #pagebreak()
 
-== TODO
+== Positive semidefinite proof
+
+The covariance matrix for the $n$ samples $x_1,...,x_n$, each represented by a $d #math.times 1$ column vector, is given by
+
+$
+  C = 1 / (n-1) sum_(i=1)^n (x_i - #math.mu)(x_i - #math.mu)^T
+$
+
+where $C$ is a $d #math.times d$ matrix and $#math.mu = sum_(i=1)^n x_i/n$ is the sample mean. Prove that $C$ is always positive semidefinite. (Note: A symmetric matrix $C$ of size $d #math.times d$ is _positive semidefinite_ if $v^T C v >= 0$ for every $d #math.times 1$ vector $v$.)
+
+=== $C$ is symmetric
+
+We can see that $C$ is symmetric because $(x_i - #math.mu)(x_i - #math.mu)^T$ is a $d #math.times d$ matrix and symmetric itself because transposing it gives back the same result.
+
+$
+  ((x_i - #math.mu)(x_i - #math.mu)^T)^T = (x_i - #math.mu)(x_i - #math.mu)^T
+$
+
+Therefore, $C$ being a sum of symmetric matrices, $C$ is symmetric.
+
+=== Positive semidefinite
+
+Proving that $C$ is semidefinite means that $v^T C v >= 0$ where $v$ is a $d #math.times 1$ vector. We can then do the following:
+
+$
+  v^T C v = v^T mat(1/(n-1) sum_(i=1)^n (x_i - #math.mu)(x_i - #math.mu)^T ) v
+$
+
+We can move the multiplication and sum outside:
+
+$
+  v^T C v = 1 / (n-1) v^T mat(sum_(i=1)^n (x_i - #math.mu)(x_i - #math.mu)^T ) v
+$
+
+From there, move $v^T$ inside the sum:
+
+$
+  v^T C v = 1 / (n-1) sum_(i=1)^n v^T (x_i - #math.mu)(x_i - #math.mu)^T v
+$
+
+We can then factor $v$ and simplify like this:
+
+$
+  v^T C v = 1 / (n-1) sum_(i=1)^n (v(x_i - #math.mu)^T)^2
+$
+
+Because squaring can only produce positive values, we know that $C$ is semipositive.
+
+$
+  v^T C v = 1 / (n-1) sum_(i=1)^n (v(x_i - #math.mu)^T)^2 >= 0
+$
+
+#pagebreak()
 
 == Eigenvalues of covariance matrices
 
 #figure(
   image("part_3_3.png"),
-  caption: [Eigenspectrums of the data sets],
+  caption: [Eigenspecta of the data sets],
 )
 
+The determinant of a covariance matrix is equal to the product of its eigenvalues. Large eigenvalues indicate directions with high variance, while small or zero eigenvalues suggest low or no variance, indicating potential linear dependence. The spectrum of eigenvalues helps understand the dimensionality and variance structure: a steep drop-off implies effective lower-dimensional representation, while a gradual decline indicates spread across dimensions. Differences in eigenvalues between datasets arise from intrinsic dimensionality, data variance, feature correlations, and noise levels, providing insights into each dataset's properties.
+
+#pagebreak()
+
+== Signular matrix for $lambda = 0$
+
+An eigenvalue $lambda$ of a matrix $A$ is defined as a scalar such that there exists a non-zero vector $x$ for which the following equation is true:
+
+$ A x = lambda x $
+
+Imagine the case $lambda = 0$:
+
+$
+  A x = 0 x\
+  A x = 0
+$
+
+This implies that the matrix $A$ has a non-zero vector $x$ in its null space. In other words, there is some non-zero vector $x$ such that $A x = 0$.
+By definition, a matrix $A$ is singular if it does not have full rank, or equivalently, if its null space contains a non-zero vector. Since we have found a non-zero vector $x$ such that $A x = 0$, this implies that $A$ is singular.
+
+== Proof that the determinant of $A$ must be zero if any eigenvalue is zero
+
+The determinant of a matrix $A$, denoted as $ det(A)$, can be expressed in terms of its eigenvalues. For an $n times n$ matrix, if $lambda_1, lambda_2, ..., lambda_n$ are the eigenvalues of $A$, then the determinant of $A$ is given by the product of its eigenvalues:
+
+$
+  det(A) = lambda_1 lambda_2 ... lambda_n
+$
+
+Therefore, if any of the eigen value is 0, the product will be 0 and the deteminant will also be 0.
+
+#pagebreak()
+
+= Computing Projection Onto a Line
+
+There are given a line $alpha : 3x + 4y = -6$ and a point $A$ with the coordinates $(-1, 3)$.
+
+== Distance from point $A$
+
+Let's first rewrite $alpha$ as such:
+
+$alpha: 3x + 4y + 6 = 0$
+
+Then we can use the Point-Line Distance Formula, defined as such:
+
+$ d = (|a x_1 + b y_1 + c|) / sqrt(a^2 + b^2) $
+
+Given the following variables:
+
+$
+  a = 3, b = 4, c = 6\
+  x_1 = -1, y_1 = 3
+$
+
+We get the following equation that we can then simpliy to get our result.
+
+$
+  d = (3 dot -1 + 4 dot 3 + 6) / (sqrt(3^2 + 4^2))\
+  d = 3(-1) + 4(3) + 6\
+  d = -3 + 12 + 6\
+  d = 15
+$
+
+Therefore the distance from $A$ to $alpha$ is 3.
+
+#pagebreak()
+
+== Python visualized
+
+We can visualize the projection of $A$ using the following python code:
+
+#raw(
+  read("part_4.py"),
+  lang: "python",
+  block: true,
+)
+
+#figure(
+  image("part_4.png"),
+  caption: [Projection of point A],
+) <plot>
