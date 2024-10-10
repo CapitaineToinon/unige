@@ -10,25 +10,31 @@ def get_prnu(camera: str) -> np.array:
     return np.loadtxt(os.path.join(dataset_prnus_directory_name, f"{camera}.txt"))
 
 
-def coeff2(image: np.array):
+def coeff2(K: np.ndarray, image: np.array):
     W = get_residuals(image)
     return np.corrcoef(W.flatten(), (K * image).flatten())[0, 1]
 
 
-if __name__ == '__main__':
+def main():
     parser = argparse.ArgumentParser(
-        prog="test.py",
-        description="Test all images against a camera"
+        prog="test.py", description="Test all images against a camera"
     )
 
-    parser.add_argument('camera', choices=cameras)
+    parser.add_argument("camera", choices=cameras, default="PXL")
+    args, _ = parser.parse_known_args()
 
-    args = parser.parse_args()
     K = get_prnu(args.camera)
 
+    offset = 0
     for camera in cameras:
-        points = [coeff2(image) for image in get_images(f"{camera}_test")]
-        plt.plot(points, 'x', label=camera)
+        points = [coeff2(K, image) for image in get_images(f"{camera}_test")]
+        plt.plot(range(offset, offset + len(points)), points, "x", label=camera)
+        offset += len(points)
 
-    plt.legend(loc='upper right')
+    plt.title(f"Testing camera {args.camera}")
+    plt.legend(loc="center left", bbox_to_anchor=(1, 0.5))
     plt.show()
+
+
+if __name__ == "__main__":
+    main()
