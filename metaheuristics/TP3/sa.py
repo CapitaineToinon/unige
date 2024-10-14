@@ -1,3 +1,4 @@
+import argparse
 import numpy as np
 from path import Path
 
@@ -8,7 +9,7 @@ def compute_initial_temperature(path: Path, *, n=100) -> float:
 
     for _ in range(n):
         new_path = current_path.random_swap()
-        new_energy = np.abs(new_path.fitness_value() - current_path.fitness_value())
+        new_energy = np.abs(new_path - current_path)
         mean_energy += new_energy * 1 / n
         current_path = new_path
 
@@ -16,7 +17,7 @@ def compute_initial_temperature(path: Path, *, n=100) -> float:
 
 
 def compute_P(*, current_path: Path, next_path: Path, temperature: float) -> float:
-    delta = next_path.fitness_value() - current_path.fitness_value()
+    delta = next_path - current_path
 
     if delta < 0:
         return 1.0
@@ -44,11 +45,11 @@ def solve_until_freeze(initial_path: Path, *, stop_after_no_improvements=3, stop
             if np.random.random() < probability:
                 accepted += 1
 
-                if next_path.fitness_value() < best_path.fitness_value():
+                if next_path < best_path:
                     best_path = next_path
                     best_path.show()
 
-                if next_path.fitness_value() < current_path.fitness_value():
+                if next_path < current_path:
                     current_improved = True
 
                 current_path = next_path
@@ -64,7 +65,14 @@ def solve_until_freeze(initial_path: Path, *, stop_after_no_improvements=3, stop
 
 
 def main():
-    initial_path = Path.load_from_text("cities3.dat")
+    parser = argparse.ArgumentParser()
+
+    parser.add_argument("filename", nargs='?', type=str, default="cities3.dat")
+    parser.add_argument("--show", type=bool, default=True)
+
+    args, _ = parser.parse_known_args()
+
+    initial_path = Path.load_from_text(args.filename)
     current_path = initial_path.shuffle()
     best_path = solve_until_freeze(current_path)
     best_path.show()

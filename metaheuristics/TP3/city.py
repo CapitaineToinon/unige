@@ -14,11 +14,11 @@ class City:
         self.x = x
         self.y = y
 
-    def coordinates(self) -> tuple[float, float]:
-        return self.x, self.y
+    def __hash__(self):
+        return hash(self.name)
+
+    def coordinates(self) -> np.ndarray:
+        return np.array([self.x, self.y])
 
     def norm(self, other: "City") -> float:
-        return np.linalg.norm(
-            np.array([*self.coordinates()]) -
-            np.array([*other.coordinates()])
-        ).astype('float')
+        return np.linalg.norm(self.coordinates() - other.coordinates()).astype('float')
