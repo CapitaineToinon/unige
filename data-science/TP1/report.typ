@@ -855,3 +855,5 @@ We can visualize the projection of $A$ using the following python code:
   image("part_4.png"),
   caption: [Projection of point A],
 ) <plot>
+
+asdsd

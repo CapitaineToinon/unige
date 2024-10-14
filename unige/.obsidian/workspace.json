@@ -11,8 +11,12 @@
             "id": "8fbfa91f89bcf0a9",
             "type": "leaf",
             "state": {
-              "type": "empty",
-              "state": {}
+              "type": "markdown",
+              "state": {
+                "file": "Data Science/01 - Introduction.md",
+                "mode": "source",
+                "source": false
+              }
             }
           }
         ]
@@ -81,6 +85,7 @@
             "state": {
               "type": "backlink",
               "state": {
+                "file": "Data Science/01 - Introduction.md",
                 "collapseAll": false,
                 "extraContext": false,
                 "sortOrder": "alphabetical",
@@ -97,6 +102,7 @@
             "state": {
               "type": "outgoing-link",
               "state": {
+                "file": "Data Science/01 - Introduction.md",
                 "linksCollapsed": false,
                 "unlinkedCollapsed": true
               }
@@ -118,7 +124,9 @@
             "type": "leaf",
             "state": {
               "type": "outline",
-              "state": {}
+              "state": {
+                "file": "Data Science/01 - Introduction.md"
+              }
             }
           }
         ]
@@ -140,12 +148,13 @@
   },
   "active": "8fbfa91f89bcf0a9",
   "lastOpenFiles": [
+    "Data Science/02 - high.md",
+    "smv/README.md",
     "smv/exercices/exercice 1/Exercice 1.md",
     "smv/exercices/exercice 1/1.png",
     "smv/exercices/exercice 1",
     "smv/exercices",
     "smv/exercices/exercice 1/1.json",
-    "smv/README.md",
     "01.md",
     "Welcome.md",
     "smv",
@@ -155,7 +164,6 @@
     "Data Science/DS.02.highDimension.pdf",
     "Data Science/DS.01.intro.pdf",
     "Data Science/2401.DS-examQuestions.pdf",
-    "Data Science/02 - high.md",
     "Methaeuristics",
     "Digital Forensics",
     "Data Science/HowToAnswerOralExamQuestions.pdf"
